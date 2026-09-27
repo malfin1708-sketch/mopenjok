@@ -1,0 +1,384 @@
+/* ==========================================
+   RESET & VARIABLES
+   ========================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-color: #ffffff;
+  --text-main: #111111;
+  --text-muted: #555555;
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+/* ==========================================
+   SCROLL SNAP CONTAINER
+   ========================================== */
+.scroll-container {
+  width: 100%;
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+.page-section {
+  width: 100%;
+  height: 100vh;
+  scroll-snap-align: start;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ==========================================
+   SYSTEM ANIMASI SCROLL (FADE IN + SLIDE UP)
+   ========================================== */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-on-scroll.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delay Animasi Kartu Proyek (Berurutan saat scroll ke Page 2) */
+.project-card-link {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-on-scroll.show .project-card-link.delay-1 {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.2s;
+}
+
+.animate-on-scroll.show .project-card-link.delay-2 {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.4s;
+}
+
+.animate-on-scroll.show .project-card-link.delay-3 {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.6s;
+}
+
+/* ==========================================
+   NAVBAR ANIMATION
+   ========================================== */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  background-color: rgb(255, 200, 0);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  animation: slideDown 0.8s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 1.2rem 2rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111111;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2.5rem;
+}
+
+.nav-links a {
+  color: #222222;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #000;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* ==========================================
+   PAGE 1: HERO SECTION
+   ========================================== */
+.hero {
+  padding: 6rem 2rem 2rem;
+  justify-content: center;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  animation: zoomBg 20s infinite alternate ease-in-out;
+}
+
+@keyframes zoomBg {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+  color: #ffffff;
+  text-align: center;
+}
+
+.tagline {
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  color: #ffda55;
+  display: block;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+}
+
+.hero-subtitle {
+  color: #e0e0e0;
+  font-size: 1rem;
+  max-width: 750px;
+  margin: 0 auto;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* ==========================================
+   PAGE 2: SELECTED WORKS
+   ========================================== */
+.projects {
+  padding-top: 4rem;
+}
+
+.projects-inner {
+  max-width: 1300px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.count {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.project-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.card-image-wrapper {
+  width: 100%;
+  height: 230px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  background-color: #f0f0f0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.project-card-link:hover .card-image-wrapper {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s ease;
+}
+
+.project-card-link:hover .card-image {
+  transform: scale(1.08);
+}
+
+.card-info h3 {
+  font-size: 1.15rem;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  color: var(--text-main);
+}
+
+.card-info p {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ==========================================
+   PAGE 3: FOOTER / CONTACT
+   ========================================== */
+.footer-page {
+  padding-top: 4rem;
+  background-color: #fafafa;
+}
+
+.footer-inner {
+  max-width: 1300px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 60%;
+}
+
+.footer-content h2 {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  font-weight: 300;
+}
+
+.email-link {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  color: var(--text-main);
+  text-decoration: none;
+  font-family: var(--font-serif);
+  display: inline-block;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.email-link:hover {
+  transform: translateX(12px);
+  color: #ff9900;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 2rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+}
